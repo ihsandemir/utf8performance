@@ -52,33 +52,52 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
+ VM version: JDK 1.8.0_151, Java HotSpot(TM) 64-Bit Server VM, 25.151-b12
  3.12:
      Benchmark                                    Mode  Cnt   Score   Error   Units
-     StringSerializationBenchmark.asciiToData    thrpt        4.037          ops/us
-     StringSerializationBenchmark.utf8ToData     thrpt        5.139          ops/us
-
-     StringSerializationBenchmark.asciiToObject  thrpt       12.402          ops/us
-     StringSerializationBenchmark.utf8ToObject   thrpt        7.129          ops/us
-
-     StringSerializationBenchmark.asciiToData     avgt        0.245           us/op
-     StringSerializationBenchmark.utf8ToData      avgt        0.192           us/op
-
-     StringSerializationBenchmark.asciiToObject   avgt        0.080           us/op
-     StringSerializationBenchmark.utf8ToObject    avgt        0.215           us/op
+     StringSerializationBenchmark.toDataAscii    thrpt        4.037          ops/us
+     StringSerializationBenchmark.toDataUtf8     thrpt        5.139          ops/us
+     StringSerializationBenchmark.toObjectAscii  thrpt       12.402          ops/us
+     StringSerializationBenchmark.toObjectUtf8   thrpt        7.129          ops/us
+     StringSerializationBenchmark.toDataAscii     avgt        0.245           us/op
+     StringSerializationBenchmark.toDataUtf8      avgt        0.192           us/op
+     StringSerializationBenchmark.toObjectAscii   avgt        0.080           us/op
+     StringSerializationBenchmark.toObjectUtf8    avgt        0.215           us/op
 
  4.0-SNAPSHOT with the Fix:
      Benchmark                                    Mode  Cnt  Score   Error   Units
-     StringSerializationBenchmark.asciiToData    thrpt       4.648          ops/us
-     StringSerializationBenchmark.utf8ToData     thrpt       3.595          ops/us
+     StringSerializationBenchmark.toDataAscii    thrpt       4.648          ops/us
+     StringSerializationBenchmark.toDataUtf8     thrpt       3.595          ops/us
+     StringSerializationBenchmark.toObjectAscii  thrpt       9.758          ops/us
+     StringSerializationBenchmark.toObjectUtf8   thrpt       6.287          ops/us
+     StringSerializationBenchmark.toDataAscii     avgt       0.213           us/op
+     StringSerializationBenchmark.toDataUtf8      avgt       0.274           us/op
+     StringSerializationBenchmark.toObjectAscii   avgt       0.096           us/op
+     StringSerializationBenchmark.toObjectUtf8    avgt       0.161           us/op
 
-     StringSerializationBenchmark.asciiToObject  thrpt       9.758          ops/us
-     StringSerializationBenchmark.utf8ToObject   thrpt       6.287          ops/us
+ VM version: JDK 12.0.1, Java HotSpot(TM) 64-Bit Server VM, 12.0.1+12
+ 3.12:
+     Benchmark                                    Mode  Cnt   Score   Error   Units
+     StringSerializationBenchmark.toDataAscii    thrpt        4.190          ops/us
+     StringSerializationBenchmark.toDataUtf8     thrpt        5.192          ops/us
+     StringSerializationBenchmark.toObjectAscii  thrpt       14.151          ops/us
+     StringSerializationBenchmark.toObjectUtf8   thrpt        7.030          ops/us
+     StringSerializationBenchmark.toDataAscii     avgt        0.232           us/op
+     StringSerializationBenchmark.toDataUtf8      avgt        0.183           us/op
+     StringSerializationBenchmark.toObjectAscii   avgt        0.072           us/op
+     StringSerializationBenchmark.toObjectUtf8    avgt        0.145           us/op
 
-     StringSerializationBenchmark.asciiToData     avgt       0.213           us/op
-     StringSerializationBenchmark.utf8ToData      avgt       0.274           us/op
+ 4.0-SNAPSHOT with the Fix:
+     Benchmark                                    Mode  Cnt   Score   Error   Units
+     StringSerializationBenchmark.toDataAscii    thrpt        6.312          ops/us
+     StringSerializationBenchmark.toDataUtf8     thrpt        4.376          ops/us
+     StringSerializationBenchmark.toObjectAscii  thrpt       12.447          ops/us
+     StringSerializationBenchmark.toObjectUtf8   thrpt        6.712          ops/us
+     StringSerializationBenchmark.toDataAscii     avgt        0.155           us/op
+     StringSerializationBenchmark.toDataUtf8      avgt        0.231           us/op
+     StringSerializationBenchmark.toObjectAscii   avgt        0.078           us/op
+     StringSerializationBenchmark.toObjectUtf8    avgt        0.154           us/op
 
-     StringSerializationBenchmark.asciiToObject   avgt       0.096           us/op
-     StringSerializationBenchmark.utf8ToObject    avgt       0.161           us/op
  *
  */
 
@@ -106,7 +125,7 @@ public class StringSerializationBenchmark {
 
     @Benchmark
     @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-    public void asciiToData(Blackhole blackhole) {
+    public void toDataAscii(Blackhole blackhole) {
         for (int i = 0; i < 1000; i++) {
             blackhole.consume(serializationService.toData(asciiString));
         }
@@ -114,7 +133,7 @@ public class StringSerializationBenchmark {
 
     @Benchmark
     @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-    public void asciiToObject(Blackhole blackhole) {
+    public void toObjectAscii(Blackhole blackhole) {
         for (int i = 0; i < 1000; i++) {
             blackhole.consume(serializationService.toObject(asciiData));
         }
@@ -122,7 +141,7 @@ public class StringSerializationBenchmark {
 
     @Benchmark
     @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-    public void utf8ToData(Blackhole blackhole) {
+    public void toDataUtf8(Blackhole blackhole) {
         for (int i = 0; i < 1000; i++) {
             blackhole.consume(serializationService.toData(utf8String));
         }
@@ -130,7 +149,7 @@ public class StringSerializationBenchmark {
 
     @Benchmark
     @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-    public void utf8ToObject(Blackhole blackhole) {
+    public void toObjectUtf8(Blackhole blackhole) {
         for (int i = 0; i < 1000; i++) {
             blackhole.consume(serializationService.toObject(utf8Data));
         }
