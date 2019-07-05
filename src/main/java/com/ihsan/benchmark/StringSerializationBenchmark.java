@@ -75,7 +75,7 @@ import java.util.concurrent.TimeUnit;
      StringSerializationBenchmark.toObjectAscii   avgt       0.096           us/op
      StringSerializationBenchmark.toObjectUtf8    avgt       0.161           us/op
 
- VM version: JDK 12.0.1, Java HotSpot(TM) 64-Bit Server VM, 12.0.1+12
+ VM version: Oracle JDK 12.0.1, Java HotSpot(TM) 64-Bit Server VM, 12.0.1+12
  3.12:
      Benchmark                                    Mode  Cnt   Score   Error   Units
      StringSerializationBenchmark.toDataAscii    thrpt        4.190          ops/us
@@ -98,12 +98,34 @@ import java.util.concurrent.TimeUnit;
      StringSerializationBenchmark.toObjectAscii   avgt        0.078           us/op
      StringSerializationBenchmark.toObjectUtf8    avgt        0.154           us/op
 
+ VM version: Open JDK 12.0.1, OpenJDK 64-Bit Server VM, 12.0.1+12
+ 3.12:
+     Benchmark                                    Mode  Cnt   Score   Error   Units
+     StringSerializationBenchmark.toDataAscii    thrpt        4.017          ops/us
+     StringSerializationBenchmark.toDataUtf8     thrpt        5.450          ops/us
+     StringSerializationBenchmark.toObjectAscii  thrpt       13.514          ops/us
+     StringSerializationBenchmark.toObjectUtf8   thrpt        6.711          ops/us
+     StringSerializationBenchmark.toDataAscii     avgt        0.184           us/op
+     StringSerializationBenchmark.toDataUtf8      avgt        0.186           us/op
+     StringSerializationBenchmark.toObjectAscii   avgt        0.070           us/op
+     StringSerializationBenchmark.toObjectUtf8    avgt        0.141           us/op
+
+ 4.0-SNAPSHOT with the Fix:
+     Benchmark                                    Mode  Cnt   Score   Error   Units
+     StringSerializationBenchmark.toDataAscii    thrpt        6.360          ops/us
+     StringSerializationBenchmark.toDataUtf8     thrpt        4.419          ops/us
+     StringSerializationBenchmark.toObjectAscii  thrpt       12.994          ops/us
+     StringSerializationBenchmark.toObjectUtf8   thrpt        5.864          ops/us
+     StringSerializationBenchmark.toDataAscii     avgt        0.153           us/op
+     StringSerializationBenchmark.toDataUtf8      avgt        0.234           us/op
+     StringSerializationBenchmark.toObjectAscii   avgt        0.076           us/op
+     StringSerializationBenchmark.toObjectUtf8    avgt        0.150           us/op
  *
  */
 
 @State(Scope.Thread)
 @OperationsPerInvocation(1000)
-@Warmup(iterations = 1, time = 5)
+@Warmup(iterations = 3, time = 5)
 @Fork(1)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @Measurement(iterations = 1, time = 10)
