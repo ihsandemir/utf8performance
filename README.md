@@ -1,6 +1,8 @@
 # utf8performance
 Test For UTF8 Performance
-Tested strings:
+4.0-SNAPSHOT includes the fix at https://github.com/hazelcast/hazelcast/pull/15238 while 3.12 is the official Hazelcast release 3.12.
+
+I used fixed string during the test. Tested strings:
 ```java
     private String asciiString = "my map name is short";
     private String utf8String = "My uf8 map name \uc2ba ÇŞÖÜĞ \ue0a0 \uD867\uDE3D \uD867\uDE3D";
